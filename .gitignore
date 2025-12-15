@@ -1,0 +1,114 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-workspace
+*.sublime-project
+.eslintcache
+.prettierignore
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+
+# Backend specific
+backend/dist/
+backend/node_modules/
+backend/.env
+backend/npm-debug.log*
+
+# Frontend specific
+frontend/dist/
+frontend/node_modules/
+frontend/.env
+frontend/npm-debug.log*
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# MongoDB
+mongodb_data/
+mongodb_config/
+.mongorc.js
+
+# Logs
+logs/
+*.log
+lerna-debug.log*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Testing
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+.nyc_output/
+
+# Miscellaneous
+.cache/
+tmp/
+temp/
+*.bak
+*.swp
+*.swo
+
+# Runtime data
+pids/
+*.pid
+*.seed
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Yarn related
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Electron
+dist_electron/
+
+# Misc
+.turbo/
+.vercel/
+.env.*.local

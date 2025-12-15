@@ -1,0 +1,70 @@
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:6
+    container_name: ctm-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: taskmanager
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ctm-network
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ctm-backend
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      MONGO_URI: mongodb://admin:password@mongodb:27017/taskmanager?authSource=admin
+      JWT_SECRET: supersecretkey
+      NODE_ENV: production
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - ctm-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/api/auth/me"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Frontend Application
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ctm-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - ctm-network
+    environment:
+      VITE_API_URL: http://backend:4000/api
+
+volumes:
+  mongodb_data:
+  mongodb_config:
+
+networks:
+  ctm-network:
+    driver: bridge
