@@ -32,7 +32,9 @@ export class AuthController {
       res.cookie('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        // For cross-site requests (frontend on a different domain), set SameSite to 'none'
+        // Browsers require Secure when SameSite is 'none'
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000
       });
 
@@ -43,7 +45,12 @@ export class AuthController {
   }
 
   static logout(_req: Request, res: Response) {
-    res.clearCookie('token');
+    res.clearCookie('token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    });
+
     res.json({ message: 'Logged out' });
   }
 
