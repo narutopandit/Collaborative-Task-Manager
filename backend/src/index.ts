@@ -16,14 +16,23 @@ const server = http.createServer(app);
 
 export const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: process.env.NODE_ENV === 'production' 
+      ? ['https://collaborative-task-manager-ten.vercel.app']
+      : ['http://localhost:5173', 'http://localhost:3000'],
     credentials: true
-  }
+  },
+  transports: ['websocket', 'polling'],
+  allowUpgrades: true
 });
 
 import './sockets';
 
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ 
+  origin: process.env.NODE_ENV === 'production'
+    ? ['https://collaborative-task-manager-ten.vercel.app']
+    : true,
+  credentials: true 
+}));
 app.use(express.json());
 app.use(cookieParser());
 
