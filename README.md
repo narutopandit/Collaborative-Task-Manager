@@ -2,6 +2,8 @@
 
 A modern, full-stack web application for collaborative task management with real-time notifications, role-based permissions, and a beautiful responsive UI.
 
+Live demo: https://collaborative-task-manager-ten.vercel.app
+
 ![Node.js](https://img.shields.io/badge/Node.js-18+-green?logo=node.js)
 ![React](https://img.shields.io/badge/React-19-blue?logo=react)
 ![MongoDB](https://img.shields.io/badge/MongoDB-6-green?logo=mongodb)
