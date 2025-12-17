@@ -10,7 +10,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 const AppContent = () => {
   const { user, loading } = useAuth()
 
-  if (loading) return <div className="p-8">Loading...</div>
+  if (loading)
+  return (
+    <div className="fixed inset-0 flex flex-col items-center justify-center bg-white">
+      <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+      <p className="mt-4 text-gray-600 text-lg font-medium animate-pulse">
+        Loading...
+      </p>
+    </div>
+  );
 
   return (
     <BrowserRouter>
