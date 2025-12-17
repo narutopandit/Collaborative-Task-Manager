@@ -4,13 +4,13 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copy package files
-COPY package*.json ./
+COPY backend/package*.json ./
 
 # Install all dependencies (including devDependencies for TypeScript compilation)
 RUN npm install
 
 # Copy source code
-COPY . .
+COPY backend/ .
 
 # Build TypeScript
 RUN npm run build
